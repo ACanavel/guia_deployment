@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guía de Deployment - Netlify</title>
+  <!-- Enlace a nuestro CSS "tipo Tailwind" -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="bg-gray-100 min-h-screen text-gray-800">
+  
+  <!-- Header-->
+  <header class="bg-blue-600 text-white py-4 shadow">
+    <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Guía de Deployment en Netlify</h1>
+      <nav class="flex gap-4 items-center">
+        <a href="#inicio" class="hover:underline">Inicio</a>
+        <a href="#gitignore" class="hover:underline">.gitignore</a>
+        <a href="#conclusion" class="hover:underline">Conclusión</a>
+
+        <!-- Botón para activar/desactivar modo oscuro -->
+        <button id="darkModeToggle" class="bg-white text-blue-600 py-1 px-3 rounded-md hover:bg-gray-200">
+          Modo Oscuro
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Contenido principal -->
+  <main class="max-w-4xl mx-auto px-4 py-8 space-y-8">
+    <!-- Sección: ¿Qué es Netlify? -->
+    <section id="inicio">
+      <h2 class="text-2xl font-bold mb-4">¿Qué es Netlify y por qué usarlo?</h2>
+      <p class="mb-4">
+        <strong>Netlify</strong> es una plataforma que permite alojar y desplegar 
+        fácilmente aplicaciones web estáticas o con algunas funcionalidades de backend 
+        (serverless). Ofrece integración con repositorios (GitHub, GitLab, Bitbucket), 
+        despliegues automáticos, manejo sencillo de dominios y certificados SSL, y más.
+      </p>
+    </section>
+
+    <!-- Sección: filess.io -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">¿Qué es filess.io?</h2>
+      <p class="mb-4">
+        <strong>filess.io</strong> es un servicio gratuito para subir y compartir 
+        archivos de manera sencilla, generando un enlace de descarga que puedes usar 
+        en tu aplicación. Útil para archivos grandes o recursos que no desees alojar 
+        directamente en tu repositorio de GitHub, en este caso la base de datos.
+      </p>
+    </section>
+
+    <!-- Sección: Flujo general -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">Flujo general de la guía</h2>
+      <ol class="list-decimal list-inside space-y-2">
+        <li>Subir tu proyecto a GitHub.</li>
+        <li>Subir archivos grandes a filess.io.(Aca subiras tu base de datos, te van a generar variables de entorno que tendras que sustituir en tu proyecto)</li>
+        <li>Conectar GitHub con Netlify.</li>
+        <li>Configurar el despliegue en Netlify.</li>
+        <li>Probar la aplicación.</li>
+        <li>(Opcional) Añadir dominio personalizado.</li>
+      </ol>
+    </section>
+
+    <!-- Sección: Subir proyecto a GitHub -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">1. Subir tu proyecto a GitHub</h2>
+      <p class="mb-4">
+        Crea un repositorio en GitHub y luego, en tu carpeta local, ejecuta:
+      </p>
+      <pre class="bg-gray-200 p-4 rounded-md overflow-auto text-sm">
+<code>git init
+git add .
+git commit -m "Primer commit"
+git remote add origin https://github.com/&lt;TU_USUARIO&gt;/&lt;TU_REPO&gt;.git
+git push -u origin main
+</code>
+      </pre>
+      <p class="mt-4">
+        Esto conectará tu proyecto local con GitHub. Ajusta la rama principal 
+        (main o master) según corresponda.
+      </p>
+    </section>
+
+    <!-- Sección: Subir archivos a filess.io -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">2. Subir archivos a filess.io</h2>
+      <ol class="list-decimal list-inside space-y-2">
+        <li>Visita <a href="https://filess.io" target="_blank" class="text-blue-600 hover:underline">filess.io</a> y crea o inicia sesión en tu cuenta.</li>
+        <li>Sube los archivos que desees compartir (imágenes, videos, etc.).</li>
+        <li>filess.io generará un enlace que podrás usar en tu código.</li>
+      </ol>
+    </section>
+
+    <!-- Sección: Conectar GitHub con Netlify -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">3. Conectar GitHub con Netlify</h2>
+      <ol class="list-decimal list-inside space-y-2">
+        <li>Crea una cuenta en <a href="https://www.netlify.com/" target="_blank" class="text-blue-600 hover:underline">Netlify</a>.</li>
+        <li>En tu panel, selecciona "New site from Git".</li>
+        <li>Autoriza a Netlify para acceder a tu cuenta de GitHub.</li>
+        <li>Elige tu repositorio donde está el proyecto.</li>
+      </ol>
+    </section>
+
+    <!-- Sección: Configurar despliegue en Netlify -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">4. Configurar despliegue en Netlify</h2>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>Selecciona la rama:</strong> main o master.</li>
+        <li><strong>Comando de build:</strong> (Por ejemplo, <code>npm run build</code> para React).</li>
+        <li><strong>Carpeta de publicación:</strong> build, dist, etc.</li>
+        <li>(Opcional) <strong>Variables de entorno:</strong> Configúralas en <em>Site Settings &gt; Build &amp; Deploy &gt; Environment</em>.</li>
+        <li>Haz clic en <strong>Deploy site</strong>.</li>
+      </ul>
+    </section>
+
+    <!-- Sección: Verificar sitio -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">5. Verificar tu sitio</h2>
+      <p class="mb-4">
+        Netlify te dará una URL (por ejemplo <code>https://mi-sitio.netlify.app</code>).
+        Visítala y comprueba que tu proyecto funcione y que los enlaces a filess.io 
+        estén correctos.
+      </p>
+    </section>
+
+    <!-- Sección: .gitignore y entorno -->
+    <section id="gitignore">
+      <h2 class="text-2xl font-bold mb-4">.gitignore y variables de entorno</h2>
+      <p class="mb-4">
+        Crea el archivo <code>.gitignore</code> en la raíz de tu proyecto para excluir 
+        archivos o carpetas que no quieras subir. Por ejemplo:
+      </p>
+      <pre class="bg-gray-200 p-4 rounded-md overflow-auto text-sm">
+<code>node_modules/
+.env
+</code>
+      </pre>
+      <p class="mt-4">
+        Para manejar variables de entorno en Netlify, ve a 
+        <em>Site Settings &gt; Build &amp; Deploy &gt; Environment</em> y defínelas allí.
+      </p>
+    </section>
+
+    <!-- Sección: Dominio personalizado -->
+    <section>
+      <h2 class="text-2xl font-bold mb-4">6. (Opcional) Dominio personalizado</h2>
+      <p class="mb-4">
+        Si tienes un dominio propio, configúralo en la sección 
+        <em>Domain Settings</em> de Netlify y apunta los registros DNS. Netlify 
+        gestionará el certificado SSL.
+      </p>
+    </section>
+
+    <!-- Sección: Conclusión -->
+    <section id="conclusion">
+      <h2 class="text-2xl font-bold mb-4">Conclusión</h2>
+      <p>
+        ¡Listo! Con esta guía podrás desplegar tu proyecto en Netlify usando GitHub y 
+        filess.io. Revisa los logs de Netlify si hay errores y asegúrate de que 
+        tus rutas a filess.io estén bien configuradas. ¡Éxitos!
+      </p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-blue-600 text-white py-4 mt-8">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <p>Realizado por Alejandra Canache.2025</p>
+    </div>
+  </footer>
+
+ 
+  <script src="script.js"></script>
+</body>
+</html>
